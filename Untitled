@@ -1,0 +1,17 @@
+import telebot 
+bot = telebot.TeleBot(PON_TU_TOKEN)
+
+def leeMensaje(mensajes):
+    for mensaje in mensajes: #Este for each recorre cada mensaje dentro de la estructura que obtiene el bot de Telegram
+        id_chat = mensaje.chat.id #Se necesita obtener el id del mensaje para saber a quien responder
+        #Aqui se pueden hacer muchas cosas como por ejemplo saludar...
+        bot.send_message(id_chat, 'Hola soy un Bot que vive en una Raspberry Pi') 
+
+bot.set_update_listener(leeMensaje) #Asigna la función correspondiente como listener
+
+@bot.message_handler(commands=['ayuda'])
+def ayudar(mensaje):
+     id_chat= mensaje.chat.id #El id del chat para saber el destino de la respuesta que va a enviar el bot
+     bot.send_message( id_chat, 'Texto con la ayuda enviada') 
+
+bot.polling(none_stop=True)
