@@ -1,0 +1,41 @@
+mkdir data
+echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --smallfiles --rest "$@"' > mongod
+chmod a+x mongod
+
+./mongod
+
+mongo
+
+
+// PHP 5
+$m = new MongoClient();
+$db = $m->test;
+$collection = $db->todos;
+$collection->insert(array("name" => $name));
+
+// PHP 7
+$m = new MongoDB\Driver\Manager();
+$bulk = new MongoDB\Driver\BulkWrite;
+$bulk->insert(array("name" => $name));
+$m->executeBulkWrite('test.todos', $bulk);
+
+
+sudo rm /var/lib/mongodb/mongod.lock
+sudo service mongodb restart
+
+
+Auth telegram bot
+
+https://stackoverflow.com/questions/31042219/how-do-i-get-authentication-in-a-telegram-bot
+
+
+MongoDB
+https://stackoverflow.com/questions/8246019/case-insensitive-search-in-mongo
+
+https://stackoverflow.com/questions/3305561/how-to-query-mongodb-with-like
+
+Search $regex
+
+.find({texto:{'$regex' : 'Excelente', '$options' : 'i'}})
+
+https://github.com/eternnoir/pyTelegramBotAPI/blob/master/tests/test_telebot.py

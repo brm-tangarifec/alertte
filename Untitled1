@@ -1,0 +1,27 @@
+5.2 Bot Telegram: Para realizar la instalación se ejecutan los siguientes comandos:
+sudo apt-get install python3.1
+sudo pip3 install pytelegrambotapi --upgrade
+
+
+5.3 Zona Horaria: Para crear un ambiente de personalización para el bot de telegram, dependiendo la hora del servidor el bot va a cambiar el saludo (Buenos días/tardes/noches). Librerias a instalar.
+pip install -U pytz
+
+5.4 Librería consultar archivo .ini: Ya que el proyecto requiere del manejo de archivos de distinto tipo entre los cuales están (php,py,sh,js). Se creó un archivo principal que contiene los datos de conexión a la base de datos de tipo (.ini). Para obtener los parámetros en python de dicho archivo es necesario instalar la siguiente librería.
+pip install configparser
+
+
+
+
+
+
+
+5.5 Librería telebot
+pip install telebot
+
+
+5.6 Librerías TelegramBotAPI
+pip install pyTelegramBotAPI
+
+
+
+
