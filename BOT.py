@@ -8,7 +8,7 @@ from telebot import util
 from telebot import apihelper
 
 
-#param_1= sys.argv[1]
+param_1= sys.argv[1]
 #texto = '&lt;p color:&quot;style:red&quot;&gt;Rojo&lt;/p&gt; '+param_1
 TOKEN = '415043230:AAElgeUG4kI1-bOmQEcF6UwyQxOvvxTwKM0'
 tb = telebot.TeleBot(TOKEN) # Combinamos la declaración del Token con la función de la API
@@ -22,15 +22,18 @@ verde=types.InlineKeyboardButton(alegre,callback_data='verde')
 neutro=types.InlineKeyboardButton(neutral,callback_data='Fastidio')
 markup.row(rojo,verde,neutro)
 #tb.send_message('-241066499', param_1,parse_mode='HTML') # Ejemplo tb.send_message('109556849', 'Hola mundo!')
-#tb.send_message('-241066499', param_1, reply_markup=markup) # Ejemplo tb.send_message('109556849', 'Hola mundo!')
-tb.send_message('-241066499',"Hola", reply_markup=markup) # Ejemplo tb.send_message('109556849', 'Hola mundo!')
+tb.send_message('-241066499', param_1, reply_markup=markup) # Ejemplo tb.send_message('109556849', 'Hola mundo!')
+#tb.send_message('-241066499',"Hola", reply_markup=markup) # Ejemplo tb.send_message('109556849', 'Hola mundo!')
 #tb.send_message('-241066499','Hola, Respondeme', reply_markup=markup) # Ejemplo tb.send_message('109556849', 'Hola mundo!')
 ##Se definen las funciones de callbakc
 
 @tb.callback_query_handler(func=lambda call: call.data)  # Whenever the user taps the "more" button,
 def alert_callback(call):
     if call.data=='rojo':
-        tb.send_message('-241066499',"Hola1")
+        msjAlertId=call.message.message_id
+        msjAlertText=call.message.text
+        sendTexto="Mensaje ID "+str(msjAlertId)+" Texto: "+str(msjAlertText)
+        tb.send_message('-218833476',sendTexto)
     elif call.data=='verde':
         tb.send_message('-241066499',"Hola2")
     else:

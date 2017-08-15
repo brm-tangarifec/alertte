@@ -22,8 +22,10 @@ class AlertMongo{
             "retweet" => $campos['retweet'],
             "favorite" => $campos['favorite'],
             "cuentaInsert" => $campos['cuentaInsert'],
+            "enviado" => 'N',
             "fechaCreacion" => $campos['fechaText'],
-            "fecha" => new \MongoDB\BSON\UTCDateTime()
+            "fecha" => new \MongoDB\BSON\UTCDateTime(),
+            "fechaEnvio" => ''
             ]);
             $result = $mongo->executeBulkWrite('callaut.tweet', $bulk);
             if ($result->getInsertedCount() >= 1) {

@@ -37,7 +37,7 @@ foreach ($almacen as $key=>$val ){
     //if($maxRt>1){
         //echo "hola";
         //die();
-       echo "Usuario $val->arrobaUsuario | Followers $val->followers | Favs $val->favorite | Retweets $val->retweet | Tweet $val->texto".";";
+       echo "idTweet: $val->idText Usuario $val->arrobaUsuario | Followers $val->followers | Favs $val->favorite | Retweets $val->retweet | Tweet $val->texto".";";
         
    // }    //json_encode($key:$val->texto);
     
