@@ -72,14 +72,15 @@ class AlertMongo{
     }
         
     /*Función para mongo */
-    function getTweetMongo($texto,$lastSend) {
+    function getTweetMongo($texto) {
        //$this->printVar($lastSend);
-       $lastSend=$lastSend+1;
+       //$lastSend=$lastSend+1;
        //$feche=new MongoDB\BSON\UTCDateTime($idlast[0]['fecha']);
        //$this->printVar($feche);
        //die();
         $mongo = new MongoDB\Driver\Manager();
-        $filter=['texto' => new MongoDB\BSON\Regex($texto,'i'),'cuentaInsert'=> ['$gte' => $lastSend]];
+        //$filter=['texto' => new MongoDB\BSON\Regex($texto,'i'),'cuentaInsert'=> ['$gte' => $lastSend]];
+        $filter=['texto' => new MongoDB\BSON\Regex($texto,'i'),'enviado'=> 'N'];
         $options=[
             'sort' => ['_id' => -1]
             ];
@@ -97,7 +98,7 @@ class AlertMongo{
     
     //Función para insertar el ùltimo tweet enviado
     function insertLastTweetSend($campos){
-        $this->printVar($campos['cuentaInsert']);
+        //$this->printVar($campos['cuentaInsert']);
         $mongo = new MongoDB\Driver\Manager();
         $filter=['lastSend'=>$campos['cuentaInsert']];
         $options=['limit' => 1];
@@ -177,8 +178,32 @@ class AlertMongo{
         return $idtweet;
     }
     
+    /*Actualiza los tweets enviados*/
+    function updateTweetSend($idSend){
+        
+        //$this->printVar($idSend);
+        //die();
+        $mongo = new MongoDB\Driver\Manager();
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            ["idText" => (string)$idSend,'enviado'=>'N'],
+            ['$set' => ['enviado' => 'S','fechaEnvio'=>new \MongoDB\BSON\UTCDateTime()]],
+            ['multi' => true, 'upsert' => true]
+            );
+            $result = $mongo->executeBulkWrite('callaut.tweet', $bulk);
+            //$this->printVar($result->getUpsertedIds());
+
+            if (empty($result->getUpsertedIds())) {
+                return true;
+                
+            } else {
+                return false;
+                
+            }
+      
+    }
     
     
     
-    //Fin de la clase
+    //Fin de la clase 
 }
